@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading Stars...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+    }
+
+    #stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      width: 2px;
+      height: 2px;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    #constellation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .dot {
+      fill: #ffffff;
+      stroke: #ffffff;
+      stroke-width: 2;
+      r: 3;
+    }
+
+    .line {
+      stroke: #ffffff;
+      stroke-width: 1.5;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: draw 1.5s forwards ease-in-out;
+    }
+
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 20%;
+      width: 100%;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #ffddf0;
+      opacity: 0;
+      animation: fadeIn 3s ease forwards 9s;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .loading-text {
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      color: #888;
+      font-style: italic;
+      animation: fadeIn 2s ease forwards;
+    }
+
+#transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+  transition: opacity 1s ease;
+}
+
+
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+
+ <svg id="constellation" viewBox="0 0 450 360" xmlns="http://www.w3.org/2000/svg" style="background:transparent;">
+  <!-- Stars -->
+  <circle cx="135" cy="230" r="3" fill="#a6b8ff" class="dot"/>
+  <circle cx="13.5" cy="234" r="2.5" fill="#f4ccbf" class="dot"/>
+  <circle cx="329" cy="115" r="2" fill="#aaccff" class="dot"/>
+  <circle cx="315" cy="166" r="4" fill="#ffc8ee" class="dot"/>
+  <circle cx="137" cy="157" r="2.5" fill="#a4aaff" class="dot"/>
+  <circle cx="362" cy="211" r="1.5" fill="#a6b8ff" class="dot"/>
+  <circle cx="364" cy="277" r="3.5" fill="#a6b8ff" class="dot"/>
+  <circle cx="405" cy="74" r="2" fill="#ffccaa" class="dot"/>
+  <circle cx="427" cy="104" r="2" fill="#ffaaff" class="dot"/>
+
+  
+
+  <!-- Animated lines container -->
+  <g id="lines" stroke="white" stroke-width="2" fill="none"></g>
+</svg>
+
+<script>
+  const svg = document.getElementById('constellation');
+  const linesGroup = document.getElementById('lines');
+
+  // Coordinates of dots indexed by their number - 1
+  const dots = [
+    {x: 135, y: 230},   // 1
+    {x: 13.5, y: 234},  // 2
+    {x: 329, y: 115},   // 3
+    {x: 315, y: 166},   // 4
+    {x: 137, y: 157},   // 5
+    {x: 362, y: 211},   // 6
+    {x: 364, y: 277},   // 7
+    {x: 405, y: 74},    // 8
+    {x: 427, y: 104}    // 9
+  ];
+
+  // Path sequence as pairs of indices (0-based)
+  const pathSequence = [
+    [1, 0],  // 2 -> 1
+    [1, 4],  // 2 -> 5
+    [4, 3],  // 5 -> 4
+    [0, 6],  // 1 -> 7
+    [6, 5],  // 7 -> 6
+    [5, 3],  // 6 -> 4
+    [3, 2],  // 4 -> 3
+    [2, 7],  // 3 -> 8
+    [7, 8]   // 8 -> 9
+  ];
+
+  // Create SVG line element helper
+  function createLine() {
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("stroke", "white");
+    line.setAttribute("stroke-width", "2");
+    line.setAttribute("x1", 0);
+    line.setAttribute("y1", 0);
+    line.setAttribute("x2", 0);
+    line.setAttribute("y2", 0);
+    linesGroup.appendChild(line);
+    return line;
+  }
+
+  // Animate a line from start to end over duration ms
+  function animateLine(line, start, end, duration) {
+    return new Promise(resolve => {
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const currentX = start.x + (end.x - start.x) * progress;
+        const currentY = start.y + (end.y - start.y) * progress;
+
+        line.setAttribute("x1", start.x);
+        line.setAttribute("y1", start.y);
+        line.setAttribute("x2", currentX);
+        line.setAttribute("y2", currentY);
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          resolve();
+        }
+      }
+
+      requestAnimationFrame(step);
+    });
+  }
+
+  async function animateSequence() {
+    for (let [fromIdx, toIdx] of pathSequence) {
+      const line = createLine();
+      await animateLine(line, dots[fromIdx], dots[toIdx], 1000);
+    }
+  }
+
+  animateSequence();
+</script>
+
+
+
+  <div class="caption">The stars aligned the day she was born.</div>
+  <div class="loading-text">Loading the stars…</div>
+
+  <script>
+    // Starfield canvas
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = [];
+    for (let i = 0; i < 300; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.2,
+        alpha: Math.random(),
+        delta: Math.random() * 0.02
+      });
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        star.alpha += star.delta;
+        if (star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+        ctx.globalAlpha = star.alpha;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+      }
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+
+    // Optional: redirect to next page after delay
+    setTimeout(() => {
+      window.location.href = "page3.html"; // Replace with your main page
+    }, 15000); // Delay for full effect
+  </script>
+
+<div id="transition-overlay"></div>
+
+</body>
+</html>

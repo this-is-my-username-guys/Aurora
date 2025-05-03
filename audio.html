@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Her Voice</title>
+
+  <!-- WaveSurfer CDN -->
+  <script src="https://unpkg.com/wavesurfer.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Caveat', cursive; /* Changed to Caveat font for body text */
+      scroll-behavior: smooth;
+      overflow: hidden;
+      background-image: url('Starrrr.jpg'); /* Background image set to starrrr.jpg */
+      background-size: cover; /* Make sure the background image covers the whole screen */
+    }
+
+    .wrapper {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+
+    .slide {
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.6), rgba(26, 26, 26, 0.9));
+      color: white;
+      padding: 20px;
+    }
+
+    .slide h2 {
+      font-size: 2em; /* Increased font size for better emphasis */
+      margin-bottom: 20px;
+      color: #FFD700;
+      text-align: center;
+      font-family: 'Pacifico', cursive; /* Use Pacifico for titles */
+    }
+
+    .slide p {
+      font-size: 1.5em; /* Slightly larger text for better readability */
+      text-align: center;
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .waveform {
+      width: 80%;
+      max-width: 600px;
+      height: 128px;
+      margin-top: 10px;
+    }
+
+    .end-button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1.2em;
+      background: #FFD700;
+      color: #121212;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .intro h1 {
+      font-size: 3em; /* Slightly larger intro heading */
+      color: #FFD700;
+      text-align: center;
+      font-family: 'Pacifico', cursive; /* Using Pacifico for intro title */
+    }
+
+    .intro p {
+      font-size: 1.4em; /* Slightly larger font for better readability */
+      color: #ffffff;
+      max-width: 800px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- TITLE SLIDE -->
+  <div class="slide intro">
+    <h1>An Admiration of Your Voice</h1>
+    <p>Have I ever mentioned that your voice is so good that it should be in a museum??<br><br>Well, this is that museum. And I’ll be your curator...<br><br><strong>Scroll along!!!</strong><br>(if audio doesnt play click on waveform and scroll up and back down again)</br></p>
+  </div>
+
+  <!-- AUDIO SLIDES -->
+  <div class="slide" data-audio="Her-laughter.mp3">
+    <h2>Her laughter✨</h2>
+    <p>Although creepy to hear at midnight, I consider this as a raw expression of emotion. An unfiltered raw part of you. And I'll never find the heart to let go of this clip.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="Ennodu-nee-irunthaal.mp3">
+    <h2>Ennodu Nee Irundhaal</h2>
+    <p>You say it's not your best work, but this has made people who don't even know you to admire your voice. To me, this is special. Just like how you're special to the world.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="Baby-shark.mp3">
+    <h2>Baby Shark</h2>
+    <p>You may argue that this was just a goof, but I swear on my soul that this made me realize how truly precious, cute and adroable you were. And that "rawr" is a cherry on top.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="Chuttamalle.mp3">
+    <h2>Chuttamalle</h2>
+    <p>I still remember that night. I called it a digital sleepover, didn't I? You were beside me at my lowest and you sang for me. This clip will always hold a special place in my heart.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="Tu-jaane-na.mp3">
+    <h2>Tu Jaane Na</h2>
+    <p>Might not be your best work, but it reminded me that you are human too. And that makes everything about you more impressive. You're not perfect, yet you make sure to present the best of yourself, always. You are perfectly imperfect.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="Riptide.mp3">
+    <h2>Riptide</h2>
+    <p>Honestly, I couldn't hear half of the lyrics at first. Yet, it made me so happy just to hear your voice. Just to hear you sing. I considered it a privilege and I still do. And every time I listen to it, My smile stretches from ear to ear.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="romantic-homicide.mp3">
+    <h2>Romantic Homicide</h2>
+    <p>This was a reward for doing the ice bucket challenge, and I just know there can be no better reward than this for me. To listen to you sing. to feel your presence through that voice of yours.</p>
+    <div class="waveform"></div>
+  </div>
+
+  <div class="slide" data-audio="Her-voice.mp3">
+    <h2>Your voice😁</h2>
+    <p>You didn't sing in this one, but I'll still hold it dear. The way you giggle at the end? PRICELESS! Because there's no way there could be anyone that hates this voice. And there's no way anyone can ever hate YOU, My adroable cute princess.</p>
+    <div class="waveform"></div>
+    <button class="end-button" onclick="window.location.href='animate.html'">Next</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll(".slide");
+  let currentSurfer = null;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const slide = entry.target;
+        const audioFile = slide.dataset.audio;
+        const container = slide.querySelector(".waveform");
+
+        if (!audioFile || !container) return;
+
+        if (currentSurfer) {
+          currentSurfer.destroy();
+        }
+
+        currentSurfer = WaveSurfer.create({
+          container: container,
+          waveColor: 'rgba(255, 255, 255, 0.3)',
+          progressColor: '#FFD700',
+          backgroundColor: 'transparent',
+          height: 128,
+          barWidth: 2,
+          responsive: true,
+        });
+
+        currentSurfer.load(audioFile);
+
+        currentSurfer.on('ready', () => {
+          currentSurfer.play();
+        });
+      } else {
+        if (currentSurfer) {
+          currentSurfer.pause();
+        }
+      }
+    });
+  }, { threshold: 0.6 });
+
+  slides.forEach(slide => observer.observe(slide));
+</script>
+
+</body>
+</html>

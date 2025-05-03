@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comic Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1d1d1d;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin: 20px 0;
+            font-size: 2rem;
+        }
+        #comic-container {
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .comic-panel {
+            display: none;
+            width: 100vw; /* Full width for the panel */
+            height: auto; /* Maintain aspect ratio */
+            object-fit: contain; /* Ensure the image doesn't stretch */
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+        #endButton {
+            display: none;
+            background-color: #007bff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Comic Story</h1>
+
+    <div id="comic-container">
+        <!-- Each image is a panel, displayed one by one -->
+        <img src="1c.png" class="comic-panel" alt="Panel 1">
+        <img src="2c.png" class="comic-panel" alt="Panel 2">
+        <img src="3c.png" class="comic-panel" alt="Panel 3">
+        <img src="4c.png" class="comic-panel" alt="Panel 4">
+        <img src="5c.png" class="comic-panel" alt="Panel 5">
+        <!-- Continue adding all panels -->
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prevBtn">Previous</button>
+        <button class="btn" id="nextBtn">Next</button>
+    </div>
+
+    <!-- Button that leads to another page -->
+    <button id="endButton" class="btn" onclick="window.location.href='end.html';">Go to Next Page</button>
+
+    <script>
+        let currentIndex = 0;
+        const panels = document.querySelectorAll('.comic-panel');
+        const totalPanels = panels.length;
+        const endButton = document.getElementById('endButton');
+
+        function showPanel(index) {
+            // Hide all panels
+            panels.forEach(panel => panel.style.display = 'none');
+            // Display the current panel
+            panels[index].style.display = 'block';
+        }
+
+        // Show the first panel initially
+        showPanel(currentIndex);
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (currentIndex < totalPanels - 1) {
+                currentIndex++;
+                showPanel(currentIndex);
+            }
+            if (currentIndex === totalPanels - 1) {
+                endButton.style.display = 'block';  // Show the button when the last panel is reached
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showPanel(currentIndex);
+                endButton.style.display = 'none'; // Hide the button when moving backwards
+            }
+        });
+    </script>
+
+</body>
+</html>

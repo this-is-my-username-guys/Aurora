@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>She is Aurora</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Patrick Hand', cursive;
+      background: url('aurora.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .collage-container {
+      position: relative;
+      width: 320px;
+      height: 340px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .img2 {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%) scale(1.5);
+      z-index: 1;
+    }
+
+    .center-img {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.2);
+      max-width: 120px;
+      border-radius: 14px;
+      z-index: 2;
+    }
+
+    .img3 {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%) scale(1.5);
+      z-index: 1;
+    }
+
+    .img1 {
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-77%) scale(2.5);
+      z-index: 0;
+      max-width: 90px;
+    }
+
+    .img4 {
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%) translateY(77%) scale(2.5);
+      z-index: 3;
+      max-width: 90px;
+    }
+
+    .collage-container img {
+      position: absolute;
+      max-width: 110px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .poem-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 3rem;
+      backdrop-filter: blur(1px);
+      color: #f8f8f8;
+      width: 80%;
+      max-width: 900px;
+      height: 100vh;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Patrick Hand', cursive;
+    }
+
+    h1, p {
+      text-shadow: 
+        0 0 3px #ffffff, 
+        0 0 5px #ffffff, 
+        0 0 10px #00aaff;
+      color: black;
+    }
+
+    h1 {
+      font-family: 'Tagesschrift', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .collage-container {
+        width: 80%;
+        max-width: 320px;
+      }
+
+      .poem-card {
+        font-size: 1rem;
+        padding: 1.8rem;
+      }
+
+      .collage-container img {
+        max-width: 100px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .collage-container {
+        width: 90%;
+      }
+
+      .poem-card {
+        font-size: 0.9rem;
+        padding: 1.4rem;
+      }
+    }
+
+    .next-button {
+      position: relative;
+      margin: 40px auto;
+      display: block;
+      padding: 12px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid #fff;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .next-button:hover {
+      background-color: #ffffff;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    #transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #000000 0%, #1a1a1a 100%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100;
+      transition: opacity 1s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="collage-container">
+  <img src="1.jpg" class="img1" />
+  <img src="2.jpg" class="img2" />
+  <img src="5.png" class="center-img" />
+  <img src="3.jpg" class="img3" />
+  <img src="4.jpg" class="img4" />
+</div>
+
+<div class="poem-card">
+  <h1>She is Aurora</h1>
+  <p>
+    She’s more beautiful than anything<br>
+    That heaven or earth could ever hold.<br>
+    Her voice, sweeter than the elixir of life,<br>
+    Her light, brighter than angels, bold.<br><br>
+
+    Yet, she's not perfect,<br>
+    But it's her imperfection that shines,<br>
+    For in those flaws, she is perfectly imperfect,<br>
+    A beauty that defies time.<br><br>
+
+    Her brown eyes, they trap the world,<br>
+    In their depth, they pull me near.<br>
+    And that broken smile, it heals me,<br>
+    Turning sorrow into joy, so dear.<br>
+  </p>
+</div>
+
+<button class="next-button" onclick="goToNextPage()">Next</button>
+<div id="transition-overlay"></div>
+
+<script>
+function goToNextPage() {
+  const overlay = document.getElementById("transition-overlay");
+  overlay.style.opacity = 1;
+  overlay.style.pointerEvents = "auto";
+  setTimeout(() => {
+    window.location.href = "audio.html";
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
