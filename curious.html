@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unspoken Words</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Background video styling */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.6;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #3e2c41;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding: 2rem 1rem;
+      background: none;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Moving Clouds */
+    .cloud-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background-repeat: repeat-x;
+      background-size: contain;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .clouds-1 {
+      background-image: url('https://svgshare.com/i/ubv.svg');
+      animation: moveCloudsLeft 100s linear infinite;
+    }
+
+    .clouds-2 {
+      background-image: url('https://svgshare.com/i/ubx.svg');
+      animation: moveCloudsRight 140s linear infinite;
+      opacity: 0.1;
+    }
+
+    @keyframes moveCloudsLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes moveCloudsRight {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      color: #5e3b4e;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+    }
+
+    /* Section cards container */
+    .sections-wrapper {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Section cards */
+    .section-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      border: 2px solid #f7c2d2;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: #7a4563;
+      font-weight: 700;
+      font-size: 1.4rem;
+      text-decoration: none;
+      user-select: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+      padding: 1rem;
+      text-align: center;
+      line-height: 1.3;
+      /* For multiline titles */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .section-card:hover, .section-card:focus {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(247, 194, 210, 0.7);
+      color: #a44f72;
+      outline: none;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 960px) {
+      .section-card {
+        width: 45vw;
+        height: 45vw;
+        max-width: 320px;
+        max-height: 320px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+      }
+      .section-card {
+        width: 90vw;
+        height: 90vw;
+        max-width: none;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Moving Clouds -->
+  <div class="cloud-layer clouds-1"></div>
+  <div class="cloud-layer clouds-2"></div>
+
+  <!-- Content -->
+  <div class="container">
+    <h1>Unspoken Words</h1>
+    <div class="sections-wrapper">
+      <a href="https://example.com/letters" target="_blank" class="section-card" aria-label="Letters I Never Sent">
+        Letters I<br>Never Sent
+      </a>
+      <a href="https://example.com/poems" target="_blank" class="section-card" aria-label="Poem That I Never Sang">
+        Poem That<br>I Never Sang
+      </a>
+      <a href="https://example.com/updates" target="_blank" class="section-card" aria-label="Updates and Logs">
+        Updates<br>and Logs
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>
